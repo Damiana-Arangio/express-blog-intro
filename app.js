@@ -1,8 +1,8 @@
 /************************************BLOG SERVER*************************************/
 
-const express = require('express')  // Import del framework Express
-const chalk = require("chalk");     // Import del pacchetto chalk
-
+const express = require('express')      // Import del framework Express
+const chalk = require('chalk');         // Import del pacchetto chalk
+const posts = require('./listaPosts')   // Import array posts
 /***************************
     CONFIGURAZIONE EXPRESS
 ****************************/
@@ -16,9 +16,19 @@ const port = 3000;               // Definizione porta su cui il server deve rima
 
 /* Rotta Principale */
 app.get('/', (req, res) => {
-    res.send('Server del mio blog') // Testo da inviare al client quando arriva una richiesta HTTP di tipo GET all'indirizzo "/"
+    res.send('<h1>Server del mio blog</h1>') // Testo da inviare al client quando arriva una richiesta HTTP di tipo GET all'indirizzo "/"
 })
-    
+
+/* Rotta Bacheca */
+app.get('/bacheca', (req, res) => {
+    res.json(posts)                 // Lista dei post (in formato Json) da inviare al client quando arriva una richiesta HTTP di tipo GET all'indirizzo "/bacheca"
+})
+
+/**************
+    FN EXTRA
+***************/
+app.use(express.static('img')); /* Middleware che serve per i file statici */
+
 
 /*********************
     AVVIO SERVER
